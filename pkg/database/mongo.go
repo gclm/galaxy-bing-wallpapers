@@ -112,3 +112,20 @@ func CreateIndexes() error {
 
 	return nil
 }
+
+// WallpaperExists 检查壁纸是否已存在
+func WallpaperExists(datetime, mkt string) (bool, error) {
+	collection := GetCollection("wallpapers")
+	ctx := context.Background()
+
+	count, err := collection.CountDocuments(ctx, bson.M{
+		"datetime": datetime,
+		"mkt":      mkt,
+	})
+
+	if err != nil {
+		return false, err
+	}
+
+	return count > 0, nil
+}

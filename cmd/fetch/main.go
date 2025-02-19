@@ -3,11 +3,18 @@ package main
 import (
 	"log"
 
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/config"
 	"github.com/gclm/galaxy-bing-wallpapers/pkg/database"
 	"github.com/gclm/galaxy-bing-wallpapers/pkg/utils"
 )
 
 func main() {
+	// 加载配置
+	_, err := config.LoadConfig()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
+	}
+
 	// 初始化数据库连接
 	if err := database.InitMongoDB(); err != nil {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)
@@ -28,11 +35,17 @@ func main() {
 
 	// 获取每个市场的壁纸
 	for _, mkt := range markets {
-		log.Printf("Fetching wallpaper for market: %s", mkt)
-		if err := utils.FetchLatestWallpaper(mkt); err != nil {
-			log.Printf("Failed to fetch wallpaper for %s: %v", mkt, err)
+		log.Printf("正在获取 %s 市场的壁纸...", mkt)
+		isNew, err := utils.FetchLatestWallpaper(mkt)
+		if err != nil {
+			log.Printf("获取 %s 市场壁纸失败: %v", mkt, err)
 			continue
 		}
-		log.Printf("Successfully fetched wallpaper for market: %s", mkt)
+
+		if isNew {
+			log.Printf("✅ %s 市场壁纸已成功保存到数据库", mkt)
+		} else {
+			log.Printf("ℹ️ %s 市场今日壁纸已存在，跳过保存", mkt)
+		}
 	}
 }

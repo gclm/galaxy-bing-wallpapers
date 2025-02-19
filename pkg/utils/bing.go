@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"time"
 
@@ -31,35 +32,52 @@ type BingResponse struct {
 }
 
 // FetchLatestWallpaper 获取最新壁纸
-func FetchLatestWallpaper(mkt string) error {
+// 返回值: (是否为新壁纸, error)
+func FetchLatestWallpaper(mkt string) (bool, error) {
 	// 构建请求URL
 	url := fmt.Sprintf(bingAPIURL, mkt)
+	log.Printf("🌐 请求 Bing API: %s", url)
 
 	// 发送HTTP请求
 	resp, err := http.Get(url)
 	if err != nil {
-		return fmt.Errorf("failed to fetch Bing API: %v", err)
+		log.Printf("❌ 请求失败: %v", err)
+		return false, fmt.Errorf("failed to fetch Bing API: %v", err)
 	}
 	defer resp.Body.Close()
+
+	// 打印响应状态
+	log.Printf("📥 响应状态码: %d", resp.StatusCode)
+	if resp.StatusCode != http.StatusOK {
+		log.Printf("❌ 响应状态异常: %s", resp.Status)
+		return false, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+	}
 
 	// 读取响应内容
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return fmt.Errorf("failed to read response body: %v", err)
+		log.Printf("❌ 读取响应内容失败: %v", err)
+		return false, fmt.Errorf("failed to read response body: %v", err)
 	}
+
+	// 打印响应内容
+	log.Printf("📄 响应内容: %s", string(body))
 
 	// 解析JSON响应
 	var bingResp BingResponse
 	if err := json.Unmarshal(body, &bingResp); err != nil {
-		return fmt.Errorf("failed to parse JSON response: %v", err)
+		log.Printf("❌ JSON解析失败: %v", err)
+		return false, fmt.Errorf("failed to parse JSON response: %v", err)
 	}
 
 	if len(bingResp.Images) == 0 {
-		return fmt.Errorf("no images found in response")
+		log.Printf("❌ 响应中没有图片数据")
+		return false, fmt.Errorf("no images found in response")
 	}
 
 	// 获取最新图片信息
 	image := bingResp.Images[0]
+	log.Printf("📸 获取到图片信息: 标题=%s, URL=%s", image.Title, image.URL)
 
 	// 构建壁纸对象
 	wallpaper := model.Wallpaper{
@@ -73,8 +91,26 @@ func FetchLatestWallpaper(mkt string) error {
 		Mkt:           mkt,
 	}
 
+	// 检查是否已存在
+	exists, err := database.WallpaperExists(wallpaper.Datetime, wallpaper.Mkt)
+	if err != nil {
+		log.Printf("❌ 检查壁纸是否存在时出错: %v", err)
+		return false, fmt.Errorf("failed to check wallpaper existence: %v", err)
+	}
+
+	if exists {
+		log.Printf("ℹ️ 壁纸已存在: 日期=%s, 市场=%s", wallpaper.Datetime, wallpaper.Mkt)
+		return false, nil
+	}
+
 	// 保存到数据库
-	return SaveWallpaper(wallpaper)
+	if err := database.SaveWallpaper(wallpaper); err != nil {
+		log.Printf("❌ 保存壁纸失败: %v", err)
+		return false, fmt.Errorf("failed to save wallpaper: %v", err)
+	}
+
+	log.Printf("✅ 壁纸保存成功: ID=%d, 标题=%s", wallpaper.ID, wallpaper.Title)
+	return true, nil
 }
 
 // SaveWallpaper 保存壁纸信息到数据库
