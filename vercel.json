@@ -10,7 +10,7 @@
       "use": "@vercel/go",
       "config": {
         "maxLambdaSize": "15mb",
-        "includeFiles": ["internal/**"]
+        "includeFiles": ["pkg/**"]
       }
     }
   ],

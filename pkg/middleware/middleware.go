@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/gclm/galaxy-bing-api/internal/handler"
+	"github.com/gclm/galaxy-bing-api/pkg/handler"
 	"github.com/gin-gonic/gin"
 )
 

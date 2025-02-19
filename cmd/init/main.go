@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gclm/galaxy-bing-api/internal/database"
-	"github.com/gclm/galaxy-bing-api/internal/model"
+	"github.com/gclm/galaxy-bing-api/pkg/database"
+	"github.com/gclm/galaxy-bing-api/pkg/model"
 )
 
 func main() {

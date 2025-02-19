@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/gclm/galaxy-bing-api/internal/database"
-	"github.com/gclm/galaxy-bing-api/internal/utils"
+	"github.com/gclm/galaxy-bing-api/pkg/database"
+	"github.com/gclm/galaxy-bing-api/pkg/utils"
 )
 
 func main() {

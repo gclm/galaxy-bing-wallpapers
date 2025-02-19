@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/gclm/galaxy-bing-api/internal/database"
+	"github.com/gclm/galaxy-bing-api/pkg/database"
 	"github.com/gin-gonic/gin"
 )
 

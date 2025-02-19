@@ -10,8 +10,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/gclm/galaxy-bing-api/internal/config"
-	"github.com/gclm/galaxy-bing-api/internal/model"
+	"github.com/gclm/galaxy-bing-api/pkg/config"
+	"github.com/gclm/galaxy-bing-api/pkg/model"
 )
 
 var Client *mongo.Client

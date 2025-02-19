@@ -3,10 +3,10 @@ package handler
 import (
 	"net/http"
 
-	"github.com/gclm/galaxy-bing-api/internal/config"
-	"github.com/gclm/galaxy-bing-api/internal/database"
-	"github.com/gclm/galaxy-bing-api/internal/handler"
-	"github.com/gclm/galaxy-bing-api/internal/middleware"
+	"github.com/gclm/galaxy-bing-api/pkg/config"
+	"github.com/gclm/galaxy-bing-api/pkg/database"
+	"github.com/gclm/galaxy-bing-api/pkg/handler"
+	"github.com/gclm/galaxy-bing-api/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 

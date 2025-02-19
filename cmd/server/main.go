@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/gclm/galaxy-bing-api/internal/config"
-	"github.com/gclm/galaxy-bing-api/internal/database"
-	"github.com/gclm/galaxy-bing-api/internal/handler"
-	"github.com/gclm/galaxy-bing-api/internal/middleware"
+	"github.com/gclm/galaxy-bing-api/pkg/config"
+	"github.com/gclm/galaxy-bing-api/pkg/database"
+	"github.com/gclm/galaxy-bing-api/pkg/handler"
+	"github.com/gclm/galaxy-bing-api/pkg/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,8 +24,11 @@ func main() {
 	// 设置 Gin 模式
 	gin.SetMode(cfg.GinMode)
 
-	// 使用配置中的端口
-	port := cfg.Port
+	// 使用环境变量中的端口，默认为 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
 	// 设置工作目录为项目根目录
 	if err := os.Chdir(projectRoot()); err != nil {
