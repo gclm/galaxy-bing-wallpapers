@@ -21,16 +21,16 @@ func init() {
 		panic(err)
 	}
 
-	// 初始化数据库
-	if err := database.InitMongoDB(); err != nil {
-		panic(err)
-	}
-
 	// 初始化 Gin
 	gin.SetMode(cfg.GinMode)
 	app = gin.New()
 	app.Use(middleware.CorsMiddleware())
 	app.Use(middleware.Recovery())
+
+	// 初始化数据库
+	if err := database.InitMongoDB(); err != nil {
+		panic(err)
+	}
 
 	// 注册路由
 	setupRoutes(app)

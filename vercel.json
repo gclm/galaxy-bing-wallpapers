@@ -2,19 +2,22 @@
   "version": 2,
   "env": {
     "MONGODB_DATABASE": "bing",
-    "GIN_MODE": "release",
-    "PORT": "3000"
+    "GIN_MODE": "release"
   },
   "builds": [
     {
-      "src": "cmd/server/main.go",
-      "use": "@vercel/go"
+      "src": "api/index.go",
+      "use": "@vercel/go",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "includeFiles": ["internal/**"]
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "cmd/server/main.go"
+      "dest": "/api/index.go"
     }
   ]
 } 

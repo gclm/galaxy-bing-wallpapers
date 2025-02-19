@@ -13,7 +13,6 @@ type Config struct {
 	MongoDBURI string
 	APIToken   string
 	GinMode    string
-	Port       string
 }
 
 // GlobalConfig 全局配置实例
@@ -42,17 +41,10 @@ func LoadConfig() (*Config, error) {
 			return
 		}
 
-		// 在 Vercel 环境中，PORT 环境变量会被自动设置
-		port := os.Getenv("PORT")
-		if port == "" && os.Getenv("VERCEL") == "1" {
-			port = "8080"
-		}
-
 		GlobalConfig = &Config{
 			MongoDBURI: mongoDBURI,
 			APIToken:   os.Getenv("API_TOKEN"),
 			GinMode:    getEnvWithDefault("GIN_MODE", "release"),
-			Port:       getEnvWithDefault("PORT", port),
 		}
 	})
 
