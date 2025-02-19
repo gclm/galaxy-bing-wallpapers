@@ -16,8 +16,8 @@
 1. 克隆项目
 
 ```bash
-git clone https://github.com/gclm/galaxy-bing-api.git
-cd galaxy-bing-api
+git clone https://github.com/gclm/galaxy-bing-wallpapers.git
+cd galaxy-bing-wallpapers
 ```
 
 2. 配置环境变量
@@ -38,9 +38,6 @@ go run cmd/init/main.go
 ```bash
 # 本地开发
 go run cmd/server/main.go
-
-# 或者使用 Vercel 开发环境
-vercel dev
 ```
 
 ## API 文档
@@ -125,9 +122,6 @@ MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/bing
 PORT=8080
 GIN_MODE=release
 API_TOKEN=your-secret-token  # API 访问令牌
-
-# 其他配置
-PAGE_SIZE=20  # 默认分页大小
 ```
 
 ## 部署
@@ -136,69 +130,57 @@ PAGE_SIZE=20  # 默认分页大小
 
 ```bash
 # 构建镜像
-docker build -t galaxy-bing-api .
+docker build -t galaxy-bing-wallpapers .
 
 # 运行容器
 docker run -d \
-  --name galaxy-bing-api \
+  --name galaxy-bing-wallpapers \
   -p 8080:8080 \
   -e MONGODB_URI=your-mongodb-uri \
   -e API_TOKEN=your-secret-token \
-  galaxy-bing-api
+  galaxy-bing-wallpapers
 ```
 
 ### 手动部署
 
 1. 编译
 ```bash
-go build -o bin/galaxy-bing-api
+go build -o bin/galaxy-bing-wallpapers
 ```
 
 2. 运行
 ```bash
-./bin/galaxy-bing-api
+./bin/galaxy-bing-wallpapers
 ```
 
 ## 开发
 
 ### 本地开发
 
-1. 安装依赖
-```bash
-npm install -g vercel
-vercel login
-```
-
-2. 开发模式
+1. 开发模式
 ```bash
 # 使用 Go 开发服务器
 go run cmd/server/main.go
-
-# 或使用 Vercel 开发服务器
-vercel dev --local-config=vercel.dev.json
 ```
 
-3. 调试技巧
+2. 调试技巧
 - 使用 `GIN_MODE=debug` 查看详细日志
-- 修改 `vercel.dev.json` 配置本地环境变量
-- 使用 `vercel logs` 查看部署日志
 
 ### 目录结构
 
 ```
-├── cmd/                # 命令行工具
+├── cmd/               # 命令行工具
 │   ├── fetch/         # 数据同步工具
 │   └── init/          # 数据初始化工具
 ├── docs/              # 文档
-├── internal/          # 内部包
-│   ├── config/        # 配置管理
-│   ├── database/      # 数据库操作
-│   ├── handler/       # API 处理器
-│   ├── logger/        # 日志管理
-│   ├── middleware/    # 中间件
-│   ├── model/         # 数据模型
-│   └── utils/         # 工具函数
-└── main.go            # 主程序
+└── pkg/               # 内部包
+    ├── config/        # 配置管理
+    ├── database/      # 数据库操作
+    ├── handler/       # API 处理器
+    ├── logger/        # 日志管理
+    ├── middleware/    # 中间件
+    ├── model/         # 数据模型
+    └── utils/         # 工具函数
 ```
 
 ### 开发规范
@@ -216,6 +198,3 @@ vercel dev --local-config=vercel.dev.json
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 创建 Pull Request
 
-## 许可证
-
-本项目采用 Apache License 2.0 许可证。
