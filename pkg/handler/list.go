@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gclm/galaxy-bing-api/pkg/database"
-	"github.com/gclm/galaxy-bing-api/pkg/model"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/database"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/model"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

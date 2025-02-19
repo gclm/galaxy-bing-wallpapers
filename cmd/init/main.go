@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gclm/galaxy-bing-api/pkg/database"
-	"github.com/gclm/galaxy-bing-api/pkg/model"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/database"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/model"
 )
 
 func main() {

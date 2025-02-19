@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/gclm/galaxy-bing-api/pkg/config"
-	"github.com/gclm/galaxy-bing-api/pkg/handler"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/config"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/handler"
 	"github.com/gin-gonic/gin"
 )
 

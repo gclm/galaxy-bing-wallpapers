@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/gclm/galaxy-bing-api/pkg/database"
-	"github.com/gclm/galaxy-bing-api/pkg/model"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/database"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/model"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

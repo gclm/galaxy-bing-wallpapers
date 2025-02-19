@@ -1,4 +1,4 @@
-module github.com/gclm/galaxy-bing-api
+module github.com/gclm/galaxy-bing-wallpapers
 
 go 1.21
 

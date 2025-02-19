@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/gclm/galaxy-bing-api/pkg/database"
-	"github.com/gclm/galaxy-bing-api/pkg/utils"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/database"
+	"github.com/gclm/galaxy-bing-wallpapers/pkg/utils"
 )
 
 func main() {
