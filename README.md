@@ -1,4 +1,4 @@
-# Galaxy Bing API
+# Galaxy Bing Wallpapers API
 
 必应每日壁纸 API 服务，支持多地区、多尺寸的壁纸获取。
 
