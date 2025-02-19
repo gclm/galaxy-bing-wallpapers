@@ -57,6 +57,9 @@ func main() {
 
 // setupRoutes 设置路由
 func setupRoutes(r *gin.Engine) {
+	// 根路径信息
+	r.GET("/", handler.GetInfo)
+
 	v1 := r.Group("/api/v1")
 	{
 		v1.GET("/today", handler.GetTodayWallpaper)

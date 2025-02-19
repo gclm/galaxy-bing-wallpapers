@@ -28,3 +28,7 @@
 .vercel
 
 .env
+
+# 保留 public 目录
+!public/
+!public/*
