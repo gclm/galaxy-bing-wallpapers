@@ -1,0 +1,30 @@
+# 环境变量文件
+
+# 编译输出
+/bin
+/dist
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 测试文件
+*.test
+*.tmp
+
+# 日志文件
+*.log
+
+# IDE 配置
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Go 特定文件
+/vendor/ 
+.vercel
+
+.env
